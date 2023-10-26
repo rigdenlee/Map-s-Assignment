@@ -1,11 +1,6 @@
 <template>
   <div>
-    <div class="content">
-      <div>
-        <h2>MAP USING MAPBOX GL</h2>
-        <h2>MAP USING MAPBOX GL</h2>
-      </div>
-    </div>
+    <MapTitle />
     <div :style="{ display: 'flex', justifyContent: 'center' }">
       <div id="map"></div>
     </div>
@@ -13,10 +8,14 @@
 </template>
 
 <script>
+import MapTitle from '@/components/MapTitle.vue'
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 export default {
+  components: {
+    MapTitle
+  },
   data() {
     return {
       map: null,
@@ -161,7 +160,7 @@ export default {
             type: "Feature",
             properties: {
               name: el.properties.gen_type,
-              color: el.properties.barrier === "fence" ? "#ff0000" : "#33FF57",
+              color: el.properties.barrier === "fence" ? "red" : "#F7455D",
             },
             geometry: {
               type: "LineString",
@@ -192,7 +191,7 @@ export default {
               },
               paint: {
                 "line-color": feature.properties.color,
-                "line-width": 20,
+                "line-width": 50,
               },
               filter: ["==", "$id", index], // Filter by feature index
             });
@@ -207,94 +206,10 @@ export default {
 </script>
 
 <style>
-.content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* position: relative;
-  top: 9vh; */
-  width: 100%;
-  height: 14vh;
-}
-
-.content h2 {
-  word-wrap: break-word;
-  color: #fff;
-  font-size: 5em;
-  position: absolute;
-  transform: translate(-50%, -50%);
-}
-
-.content h2:nth-child(1) {
-  color: white;
-  -webkit-text-stroke: 2px #03a9f4;
-}
-
-.content h2:nth-child(2) {
-  color: #03a9f4;
-  animation: animate 4s ease-in-out infinite;
-}
-
-@keyframes animate {
-  0%,
-  100% {
-    clip-path: polygon(
-      0% 45%,
-      16% 44%,
-      33% 50%,
-      54% 60%,
-      70% 61%,
-      84% 59%,
-      100% 52%,
-      100% 100%,
-      0% 100%
-    );
-  }
-
-  50% {
-    clip-path: polygon(
-      0% 60%,
-      15% 65%,
-      34% 66%,
-      51% 62%,
-      67% 50%,
-      84% 45%,
-      100% 46%,
-      100% 100%,
-      0% 100%
-    );
-  }
-}
-
 #map {
   text-align: center;
   height: 82vh;
   width: 76vw;
-}
-
-.card {
-  width: 300px;
-  position: absolute;
-  top: 10px;
-  right: 0px;
-  z-index: 1;
-  padding: 10px;
-  background: white;
-  transform: translateY(-0.5%);
-  box-shadow: 0 4rem 8rem rgba(255, 255, 255, 0.2);
-}
-
-.card-body {
-  display: flex;
-  flex-direction: row;
-}
-
-.card-title {
-  width: 80%;
-}
-
-.card-cross {
-  width: 20%;
 }
 
 .description-title {
